@@ -27,13 +27,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server berjalan di http://localhost:${PORT}`);
 });
-
-const shutdown = async () => {
-    console.log('Menutup koneksi Prisma Client...');
-    await prisma.$disconnect();
-    console.log('Koneksi Prisma Client telah ditutup.');
-    process.exit(0);
-};
-
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
