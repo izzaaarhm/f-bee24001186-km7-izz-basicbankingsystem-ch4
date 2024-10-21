@@ -1,0 +1,60 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  password  String
+  profile   Profile?
+  accounts  Account[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  
+  @@map("users")
+}
+
+model Profile {
+  id               Int    @id @default(autoincrement())
+  userId           Int    @unique @map("user_id")
+  identityType     String @map("identity_type")
+  identityNumber   String @map("identity_number")
+  address          String
+  user             User   @relation(fields: [userId], references: [id])
+
+  @@map("profiles")
+}
+
+model Account {
+  id                Int    @id @default(autoincrement())
+  userId            Int    @unique @map("user_id")
+  bankName          String @map("bank_name")
+  bankAccountNumber String @map("bank_account_number")
+  balance           Float
+  user              User   @relation(fields: [userId], references: [id])
+  
+  sourceTransaction  Transaction[] @relation("SourceAccount")
+  destinationTransaction Transaction[] @relation("DestinationAccount")
+
+  
+  @@map("bank_accounts")
+}
+
+model Transaction {
+  id                      Int      @id @default(autoincrement())
+  amount                  Float
+  sourceAccountId         Int      @map("source_account_id")
+  destinationAccountId    Int      @map("destination_account_id")
+
+  sourceAccount           Account  @relation("SourceAccount", fields: [sourceAccountId], references: [id])
+  destinationAccount      Account  @relation("DestinationAccount", fields: [destinationAccountId], references: [id])
+  
+  @@map("transactions")
+}
