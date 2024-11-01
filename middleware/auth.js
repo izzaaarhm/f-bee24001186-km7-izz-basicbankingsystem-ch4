@@ -17,4 +17,4 @@ const authJWT = (req, res, next) => {
   });
 };
 
-module.exports = authJWT;
+module.exports = { authJWT };
