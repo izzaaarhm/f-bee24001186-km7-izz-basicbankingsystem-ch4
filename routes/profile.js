@@ -1,8 +1,37 @@
 const express = require('express');
 const router = express.Router();
 const Profile = require('../services/profiles');
-const { profileSchema } = require('../services/validation');
+const { profileSchema } = require('../middleware/validation');
 
+/**
+ * @swagger
+ * /api/v1/profiles:
+ *   post:
+ *     summary: Membuat profil baru
+ *     tags: [Profile]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *               identityType:
+ *                 type: string
+ *               identityNumber:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Profil berhasil dibuat
+ *       400:
+ *         description: Input tidak valid
+ *       500:
+ *         description: Kesalahan server
+ */
 router.post('/', async (req, res) => {
     const { error } = profileSchema.validate(req.body);
     if (error) {
@@ -20,6 +49,19 @@ router.post('/', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/v1/profiles:
+ *   get:
+ *     summary: Menampilkan semua profil
+ *     tags: [Profile]
+ *     responses:
+ *       200:
+ *         description: Berhasil mendapatkan daftar profil
+ *       500:
+ *         description: Kesalahan server
+ */
+
 router.get('/', async (req, res) => {
     const profileInstance = new Profile();
     try {
@@ -29,6 +71,28 @@ router.get('/', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+/**
+ * @swagger
+ * /api/v1/profiles/{profileId}:
+ *   get:
+ *     summary: Menampilkan profil berdasarkan ID
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: path
+ *         name: profileId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID profil
+ *     responses:
+ *       200:
+ *         description: Berhasil mendapatkan profil
+ *       404:
+ *         description: Profil tidak ditemukan
+ *       500:
+ *         description: Kesalahan server
+ */
 
 router.get('/:profileId', async (req, res) => {
     const { profileId } = req.params;
@@ -46,3 +110,5 @@ router.get('/:profileId', async (req, res) => {
 });
 
 module.exports = router;
+
+

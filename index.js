@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const { PORT = 3000} = process.env;
 const bodyParser = require('body-parser');
 const { PrismaClient } = require('@prisma/client'); 
 const prisma = new PrismaClient();
+const swaggerDocs = require('./swagger');
+const morgan = require('morgan');
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(morgan('dev'));
 
 const userRoutes = require('./routes/user');
 const bankAccountRoutes = require('./routes/bank_account');
@@ -26,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server berjalan di http://localhost:${PORT}`);
+    swaggerDocs(app, PORT);
 });
 
 

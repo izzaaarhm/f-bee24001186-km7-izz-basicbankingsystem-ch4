@@ -1,0 +1,521 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Dokumentasi Banking System",
+    "version": "1.0.0",
+    "description": "Dokumentasi untuk API Banking System"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/api/v1/accounts": {
+      "post": {
+        "summary": "Membuat akun bank baru",
+        "tags": [
+          "Bank Account"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "bankName": {
+                    "type": "string"
+                  },
+                  "bankAccountNumber": {
+                    "type": "string"
+                  },
+                  "balance": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Akun bank berhasil dibuat"
+          },
+          "400": {
+            "description": "Input tidak valid"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      },
+      "get": {
+        "summary": "Menampilkan semua akun bank",
+        "tags": [
+          "Bank Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan daftar akun bank"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{accountId}": {
+      "get": {
+        "summary": "Menampilkan akun bank berdasarkan ID",
+        "tags": [
+          "Bank Account"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID akun bank"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan akun bank"
+          },
+          "404": {
+            "description": "Akun bank tidak ditemukan"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Menghapus akun bank",
+        "tags": [
+          "Bank Account"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID akun bank yang akan dihapus"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Akun bank berhasil dihapus"
+          },
+          "404": {
+            "description": "Akun bank tidak ditemukan"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{accountId}/withdraw": {
+      "post": {
+        "summary": "Menarik saldo dari akun bank",
+        "tags": [
+          "Bank Account"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID akun bank"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "description": "Jumlah yang akan ditarik"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Penarikan berhasil"
+          },
+          "400": {
+            "description": "Input tidak valid"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{accountId}/deposit": {
+      "post": {
+        "summary": "Melakukan penyetoran ke akun bank",
+        "tags": [
+          "Bank Account"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID akun bank"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "description": "Jumlah yang akan disetorkan"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Penyetoran berhasil"
+          },
+          "400": {
+            "description": "Input tidak valid"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/profiles": {
+      "post": {
+        "summary": "Membuat profil baru",
+        "tags": [
+          "Profile"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "identityType": {
+                    "type": "string"
+                  },
+                  "identityNumber": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Profil berhasil dibuat"
+          },
+          "400": {
+            "description": "Input tidak valid"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      },
+      "get": {
+        "summary": "Menampilkan semua profil",
+        "tags": [
+          "Profile"
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan daftar profil"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profileId}": {
+      "get": {
+        "summary": "Menampilkan profil berdasarkan ID",
+        "tags": [
+          "Profile"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profileId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID profil"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan profil"
+          },
+          "404": {
+            "description": "Profil tidak ditemukan"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/transfer": {
+      "post": {
+        "summary": "Melakukan transfer antara dua akun",
+        "tags": [
+          "Transaction"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sourceAccountId": {
+                    "type": "string"
+                  },
+                  "destinationAccountId": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Transfer berhasil"
+          },
+          "400": {
+            "description": "Input tidak valid atau akun sumber dan tujuan sama"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/transactions": {
+      "get": {
+        "summary": "Menampilkan semua transaksi",
+        "tags": [
+          "Transaction"
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan daftar transaksi"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/{transactionId}": {
+      "get": {
+        "summary": "Menampilkan transaksi berdasarkan ID",
+        "tags": [
+          "Transaction"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transactionId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID transaksi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan transaksi"
+          },
+          "404": {
+            "description": "Transaksi tidak ditemukan"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/users": {
+      "post": {
+        "summary": "Membuat user baru",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "profile": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User berhasil dibuat"
+          },
+          "400": {
+            "description": "Input tidak valid"
+          },
+          "409": {
+            "description": "Email sudah digunakan"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      },
+      "get": {
+        "summary": "Menampilkan semua user",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan daftar user"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    },
+    "/api/v1/users/login": {
+      "post": {
+        "summary": "Login user",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil login"
+          },
+          "401": {
+            "description": "Email atau password salah"
+          }
+        }
+      }
+    },
+    "/api/v1/users/{userId}": {
+      "get": {
+        "summary": "Menampillkan user berdasarkan ID",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan user"
+          },
+          "404": {
+            "description": "User tidak ditemukan"
+          },
+          "500": {
+            "description": "Kesalahan server"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}

@@ -1,8 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const Transaction = require('../services/transactions');
-const { transactionSchema } = require('../services/validation');
+const { transactionSchema } = require('../middleware/validation');
 
+/**
+ * @swagger
+ * /api/v1/transactions/transfer:
+ *   post:
+ *     summary: Melakukan transfer antara dua akun
+ *     tags: [Transaction]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sourceAccountId:
+ *                 type: string
+ *               destinationAccountId:
+ *                 type: string
+ *               amount:
+ *                 type: number
+ *     responses:
+ *       201:
+ *         description: Transfer berhasil
+ *       400:
+ *         description: Input tidak valid atau akun sumber dan tujuan sama
+ *       500:
+ *         description: Kesalahan server
+ */
 router.post('/transfer', async (req, res) => {
     const { error } = transactionSchema.validate(req.body);
     if (error) {
@@ -25,6 +52,18 @@ router.post('/transfer', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/v1/transactions:
+ *   get:
+ *     summary: Menampilkan semua transaksi
+ *     tags: [Transaction]
+ *     responses:
+ *       200:
+ *         description: Berhasil mendapatkan daftar transaksi
+ *       500:
+ *         description: Kesalahan server
+ */
 router.get('/', async (req, res) => {
     const transactionInstance = new Transaction();
     try {
@@ -35,6 +74,27 @@ router.get('/', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/v1/transactions/{transactionId}:
+ *   get:
+ *     summary: Menampilkan transaksi berdasarkan ID
+ *     tags: [Transaction]
+ *     parameters:
+ *       - in: path
+ *         name: transactionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID transaksi
+ *     responses:
+ *       200:
+ *         description: Berhasil mendapatkan transaksi
+ *       404:
+ *         description: Transaksi tidak ditemukan
+ *       500:
+ *         description: Kesalahan server
+ */
 router.get('/:transactionId', async (req, res) => {
     const { transactionId } = req.params;
 

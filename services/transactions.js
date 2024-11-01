@@ -67,7 +67,7 @@ class Transaction {
       });
       return transactions;
     } catch (error) {
-      throw new Error(`Gagal menampilan seluruh transaksi: ${error.message}`);
+      throw new Error(`Gagal menampilkan seluruh transaksi: ${error.message}`);
     }
   }
 

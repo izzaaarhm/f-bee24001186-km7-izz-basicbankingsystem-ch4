@@ -61,7 +61,7 @@ class BankAccount {
       });
 
       if (account.balance < amount) {
-        throw new Error('Saldo tidak mencukupi');
+        throw new Error('Saldo tidak cukup!');
       }
 
       const updatedAccount = await prisma.bankAccount.update({
