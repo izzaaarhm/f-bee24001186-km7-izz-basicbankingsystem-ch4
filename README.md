@@ -5,9 +5,15 @@ Hai! Projek ini merupakan sebuah banking system API sederhana (sangat-sangat sed
 - **Prisma**: ORM for database management with PostgreSQL.
 - **PostgreSQL**: Relational database used for storing user, account, profile, and transaction data.
 - **Joi**: Input validation for incoming data.
+- **JWT**: A Json Web Token to implement authentication.
+- **Jest**: Unit Testing
+-**Swagger-jsdoc**: to make a generated API Documentation^^
+
 ## Prerequisites
-- **Node.js** yang sudah terinstall
-- **PostgreSQL** yang terinstall pada pc dan pastikan sedang berjalan
+- **Node.js**
+- **PostgreSQL** (make sure it's running on your pc)
+- **Prisma**
+- **Joi**
 
 ## Steps to Run Locally
 
@@ -27,13 +33,22 @@ Hai! Projek ini merupakan sebuah banking system API sederhana (sangat-sangat sed
       ```bash
         npx prisma migrate dev
       ```
-5. **Jalankan server**:
+5. **Config JWT**:
+    - gunakan JWT_SECRET dari .env.sample, salin ke file .env Anda, Anda dapat mengubah nilainya.
+      
+6. **Jalankan server**:
    ```bash
-     node index.js
+     npm run dev
+     npm run test (untuk menjalankan unit testing)
    ```
+   
 6. **Akses API**:
    ```bash
      (http://localhost:3000)
    ```
-      
+## API Documentation
+Dalam membuat dokumentasi API, project ini mengimplementasikan Swagger. Setelah server berjalan, dokumentasi dapat diakses di link yang tersedia atau melalui link berikut:
+```bash
+    (http://localhost:3000/api-docs)
+```
        
