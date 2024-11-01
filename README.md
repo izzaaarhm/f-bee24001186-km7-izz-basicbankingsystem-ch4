@@ -16,7 +16,7 @@ Hai! Projek ini merupakan sebuah banking system API sederhana (sangat-sangat sed
      git clone https://github.com/yourusername/your-repo.git
      cd your-repo
     ```
-3. **Install seluruh modul yang diperlukan**:
+3. **Install seluruh package yang diperlukan**:
    ```bash
      npm install express prisma @prisma/client joi ejs
    ```
