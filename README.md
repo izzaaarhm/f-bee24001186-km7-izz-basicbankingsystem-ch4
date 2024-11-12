@@ -38,17 +38,13 @@ Hai! Projek ini merupakan sebuah banking system API sederhana (sangat-sangat sed
       
 6. **Jalankan server**:
    ```bash
-     npm run dev
+     npm run start
      npm run test (untuk menjalankan unit testing)
    ```
    
-6. **Akses API**:
-   ```bash
-     (http://localhost:3000)
-   ```
 ## API Documentation
 Dalam membuat dokumentasi API, project ini mengimplementasikan Swagger. Setelah server berjalan, dokumentasi dapat diakses di link yang tersedia atau melalui link berikut:
 ```bash
-    (http://localhost:3000/api-docs)
+    (https://agile-binder-441009-r1.et.r.appspot.com/api-docs/)
 ```
        
