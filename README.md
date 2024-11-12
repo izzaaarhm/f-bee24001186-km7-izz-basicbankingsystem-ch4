@@ -45,6 +45,6 @@ Hai! Projek ini merupakan sebuah banking system API sederhana (sangat-sangat sed
 ## API Documentation
 Dalam membuat dokumentasi API, project ini mengimplementasikan Swagger. Setelah server berjalan, dokumentasi dapat diakses di link yang tersedia atau melalui link berikut:
 ```bash
-    (https://agile-binder-441009-r1.et.r.appspot.com/api-docs/)
+    https://agile-binder-441009-r1.et.r.appspot.com/api-docs/
 ```
        
