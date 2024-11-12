@@ -4,7 +4,8 @@ const {
     bankAccountSchema, 
     withdrawSchema, 
     depositSchema, 
-    transactionSchema 
+    transactionSchema,
+    imageSchema 
 } = require('../validation');
 
 describe('Validation Schemas', () => {
@@ -152,6 +153,34 @@ describe('Validation Schemas', () => {
             };
 
             const { error } = transactionSchema.validate(invalidTransactionData);
+            expect(error).toBeDefined();
+        });
+    });
+
+    describe('imageSchema', () => {
+        test('harus valid untuk data image yang benar', () => {
+            const imageData = {
+                title: 'Image Title1',
+                description: 'Image Description1',
+                image: {
+                    mimetype: 'image/jpeg'
+                }
+            };
+
+            const { error } = imageSchema.validate(imageData);
+            expect(error).toBeUndefined();
+        });
+
+        test('harus tidak valid untuk data image yang salah', () => {
+            const invalidImageData = {
+                title: 'Image Title2',
+                description: 'Image Description2',
+                image: {
+                    mimetype: 'image/gif'
+                }
+            };
+
+            const { error } = imageSchema.validate(invalidImageData);
             expect(error).toBeDefined();
         });
     });

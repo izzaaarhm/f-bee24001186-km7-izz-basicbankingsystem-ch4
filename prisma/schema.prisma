@@ -19,6 +19,7 @@ model User {
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
   
   @@map("users")
+  Image Image[]
 }
 
 model Profile {
@@ -57,4 +58,16 @@ model Transaction {
   destinationAccount      Account  @relation("DestinationAccount", fields: [destinationAccountId], references: [id])
   
   @@map("transactions")
+}
+
+model Image {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  url         String
+  userId      Int      @map("user_id")
+  user        User     @relation(fields: [userId], references: [id])
+  uploadedAt  DateTime @default(now()) @map("uploaded_at")
+  
+  @@map("images")
 }

@@ -16,7 +16,7 @@ const options = {
             },
         ],
     },
-    apis: ['./routes/*.js'], // utk generate apidocs otomatis, path ke folder routes
+    apis: ['./src/routes/*.js'], // utk generate apidocs otomatis, path ke folder routes
 };
 
 const swaggerSpec = swaggerJsdoc(options);

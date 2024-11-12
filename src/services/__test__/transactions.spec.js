@@ -74,14 +74,16 @@ describe('Transaction Service', () => {
     });
 
     test('harus menampilkan eror jika saldo tidak mencukupi', async () => {
-      const transaction = new Transaction(1, 2, 500);
-      prisma.bankAccount.findUnique.mockResolvedValueOnce({ id: 1, balance: 100 });
-
+      const transaction = new Transaction(1, 2, 500); // Jumlah transfer lebih besar dari saldo rekening sumber
+      prisma.bankAccount.findUnique
+        .mockResolvedValueOnce({ id: 1, balance: 100 }) // Rekening sumber dengan saldo 100
+        .mockResolvedValueOnce({ id: 2, balance: 50 });  // Rekening tujuan dengan saldo 50
+    
       await expect(transaction.transfer()).rejects.toThrow('Saldo rekening sumber tidak mencukupi');
-      expect(prisma.bankAccount.findUnique).toHaveBeenCalledTimes(1);
+      expect(prisma.bankAccount.findUnique).toHaveBeenCalledTimes(2);
       expect(prisma.bankAccount.update).not.toHaveBeenCalled();
       expect(prisma.transaction.create).not.toHaveBeenCalled();
-    });
+    });    
   });
 
   describe('getAllTransactions', () => {

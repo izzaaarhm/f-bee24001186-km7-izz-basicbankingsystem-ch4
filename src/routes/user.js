@@ -53,7 +53,7 @@ router.post('/register', async (req, res) => {
 
         const newUser = await user.register();
         res.status(201).json(newUser);
-    } catch (err) {
+    } catch {
         res.status(500).json({ error: 'Gagal mendaftarkan user, coba lagi nanti.' });
     }
 });
@@ -91,9 +91,10 @@ router.post('/login', async (req, res) => {
       const result = await userInstance.login(email, password);
       res.json(result);
     } catch (err) {
+      console.error(err); // Log the error for debugging purposes
       res.status(401).json({ error: err.message });
     }
-  });
+});
 
 /**
  * @swagger
@@ -113,7 +114,7 @@ router.get('/getUsers', authJWT, async (req, res) => {
     try {
         const users = await userInstance.getAllUsers();
         res.json(users);
-    } catch (err) {
+    } catch {
         res.status(500).json({ error: 'Gagal menampilkan user, coba lagi nanti.' });
     }
 });
@@ -150,7 +151,7 @@ router.get('/:userId', authJWT, async (req, res) => {
             return res.status(404).json({ error: 'User tidak ditemukan' });
         }
         res.json(user);
-    } catch (err) {
+    } catch {
         res.status(500).json({ error: 'User tidak ditemukan, coba lagi nanti.' });
     }
 });

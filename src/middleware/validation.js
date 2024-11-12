@@ -38,11 +38,20 @@ const transactionSchema = Joi.object({
     amount: Joi.number().positive().required()
 });
 
+const imageSchema = Joi.object({
+    title: Joi.string().min(3).max(50).required(),
+    description: Joi.string().min(3).max(100).required(),
+    image: Joi.object({
+        mimetype: Joi.string().valid('image/jpeg', 'image/png', 'image/jpg').required(),
+    }).optional()
+});
+
 module.exports = {
     userSchema,
     profileSchema,
     bankAccountSchema,
     withdrawSchema,
     depositSchema,
-    transactionSchema
+    transactionSchema,
+    imageSchema
 };

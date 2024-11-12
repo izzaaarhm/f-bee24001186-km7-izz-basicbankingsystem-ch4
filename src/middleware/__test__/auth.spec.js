@@ -1,4 +1,4 @@
-const authJWT = require('../auth');
+const { authJWT } = require('../auth');
 const jwt = require('jsonwebtoken');
 
 jest.mock('jsonwebtoken');
@@ -13,6 +13,10 @@ describe('authJWT Middleware', () => {
       json: jest.fn(),
     };
     next = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   test('harus mengembalikan error jika token tidak ada', () => {

@@ -4,8 +4,9 @@
   "description": "Hai! Projek ini merupakan sebuah banking system API sederhana (sangat-sangat sederhana) yang mengimplementasikan:\r - **Node.js**: JavaScript runtime environment.\r - **Express.js**: Web framework for Node.js.\r - **Prisma**: ORM for database management with PostgreSQL.\r - **PostgreSQL**: Relational database used for storing user, account, profile, and transaction data.\r - **Joi**: Input validation for incoming data.\r ## Prerequisites\r - **Node.js** yang sudah terinstall\r - **PostgreSQL** yang terinstall pada pc dan pastikan sedang berjalan",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "dev": "node app.js"
+    "test": "jest --coverage",
+    "dev": "node app.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -25,13 +26,13 @@
     "express": "^4.21.1",
     "express-flash": "^0.0.2",
     "express-session": "^1.18.1",
-    "jest": "^29.7.0",
+    "imagekit": "^5.2.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "prisma": "^5.21.1",
     "session": "^0.1.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
@@ -42,7 +43,14 @@
   },
   "keywords": [],
   "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "eslint": "^9.14.0",
+    "eslint-plugin-jest": "^28.9.0",
+    "globals": "^15.12.0",
+    "jest": "^29.7.0",
+    "jest-mock": "^29.7.0",
     "nodemon": "^3.1.7",
+    "prisma": "^5.22.0",
     "supertest": "^7.0.0"
   }
 }
