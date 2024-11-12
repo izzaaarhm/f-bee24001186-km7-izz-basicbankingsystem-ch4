@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1731399424957" clover="3.2.0">
-  <project timestamp="1731399424957" name="All files">
-    <metrics statements="484" coveredstatements="482" conditionals="64" coveredconditionals="62" methods="28" coveredmethods="28" elements="576" coveredelements="572" complexity="0" loc="484" ncloc="484" packages="2" files="7" classes="7"/>
+<coverage generated="1731400344295" clover="3.2.0">
+  <project timestamp="1731400344295" name="All files">
+    <metrics statements="445" coveredstatements="445" conditionals="58" coveredconditionals="57" methods="24" coveredmethods="24" elements="527" coveredelements="526" complexity="0" loc="445" ncloc="445" packages="2" files="6" classes="6"/>
     <package name="middleware">
-      <metrics statements="116" coveredstatements="114" conditionals="12" coveredconditionals="11" methods="5" coveredmethods="5"/>
+      <metrics statements="77" coveredstatements="77" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
       <file name="auth.js" path="D:\Izzati\College\SMT5\git\Challenge4\src\middleware\auth.js">
         <metrics statements="20" coveredstatements="20" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -26,48 +26,6 @@
         <line num="18" count="2" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
-      </file>
-      <file name="multer.js" path="D:\Izzati\College\SMT5\git\Challenge4\src\middleware\multer.js">
-        <metrics statements="39" coveredstatements="37" conditionals="6" coveredconditionals="5" methods="4" coveredmethods="4"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="28" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="29" count="2" type="stmt"/>
-        <line num="30" count="2" type="stmt"/>
-        <line num="31" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="37" count="2" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
       </file>
       <file name="validation.js" path="D:\Izzati\College\SMT5\git\Challenge4\src\middleware\validation.js">
         <metrics statements="57" coveredstatements="57" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
