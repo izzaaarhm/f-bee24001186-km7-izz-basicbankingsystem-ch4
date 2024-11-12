@@ -4,7 +4,7 @@
   "description": "Hai! Projek ini merupakan sebuah banking system API sederhana (sangat-sangat sederhana) yang mengimplementasikan:\r - **Node.js**: JavaScript runtime environment.\r - **Express.js**: Web framework for Node.js.\r - **Prisma**: ORM for database management with PostgreSQL.\r - **PostgreSQL**: Relational database used for storing user, account, profile, and transaction data.\r - **Joi**: Input validation for incoming data.\r ## Prerequisites\r - **Node.js** yang sudah terinstall\r - **PostgreSQL** yang terinstall pada pc dan pastikan sedang berjalan",
   "main": "index.js",
   "engines": {
-    "node": "21.x"
+    "node": "20.x"
   },
   "scripts": {
     "postinstall": "prisma generate",
