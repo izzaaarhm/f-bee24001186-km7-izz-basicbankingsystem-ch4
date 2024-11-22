@@ -16,7 +16,7 @@ Sentry.profiler.startProfiler();
 
 // Starts a transaction that will also be profiled
 Sentry.startSpan({
-  name: "My First Transaction",
+  name: "Basic Banking System - izza",
 }, () => {
   // the code executing inside the transaction will be wrapped in a span and profiled
 });

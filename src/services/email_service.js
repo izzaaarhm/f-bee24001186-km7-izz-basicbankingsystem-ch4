@@ -2,26 +2,29 @@ const nodemailer = require('nodemailer');
 
 // Bikin transporter untuk pengaturan email
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: process.env.SMTP_HOST,  
+  port: process.env.SMTP_PORT,  
+  secure: true, 
   auth: {
-    user: 'your-email@gmail.com',
-    pass: 'your-password' //pake .env buat nyimpen pass
-  }
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+  },
 });
 
-// Ngatur opsi email
-const mailOptions = {
-  from: 'your-email@gmail.com',
-  to: 'recipient@example.com', 
-  subject: 'Hello from the other siiideeee~',
-  text: 'Hello, this is a test email using Nodemailerr'
+const sendEmail = async (to, subject, html) => {
+  try {
+      await transporter.sendMail({
+          from: `"Basic Banking System" <${process.env.EMAIL_USER}>`,
+          to,
+          subject,
+          html,
+      });
+      return { massage: 'Email berhasil terkirim'};
+  } catch (error) {
+      throw new Error('Error saat mengirim email:', error);
+  }
 };
 
-// Mengirim email
-transporter.sendMail(mailOptions, function(error, info) {
-  if (error) {
-    console.log('Error occurred:', error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
+module.exports = {
+  sendEmail,
+};

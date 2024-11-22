@@ -620,9 +620,6 @@
         "responses": {
           "200": {
             "description": "Berhasil mendapatkan daftar user"
-          },
-          "500": {
-            "description": "Kesalahan server"
           }
         }
       }
@@ -661,9 +658,82 @@
         }
       }
     },
+    "/api/v1/users/forgot-password": {
+      "post": {
+        "summary": "Mengirimkan link reset password",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Link reset password berhasil dikirim"
+          },
+          "404": {
+            "description": "Email tidak ditemukan"
+          }
+        }
+      }
+    },
+    "/api/v1/users/reset-password/{token}": {
+      "post": {
+        "summary": "Mereset password menggunakan token",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token reset password"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password berhasil direset"
+          },
+          "400": {
+            "description": "Token tidak valid atau kadaluarsa"
+          }
+        }
+      }
+    },
     "/api/v1/users/{userId}": {
       "get": {
-        "summary": "Menampillkan user berdasarkan ID",
+        "summary": "Menampilkan user berdasarkan ID",
         "tags": [
           "User"
         ],
@@ -684,9 +754,6 @@
           },
           "404": {
             "description": "User tidak ditemukan"
-          },
-          "500": {
-            "description": "Kesalahan server"
           }
         }
       }
