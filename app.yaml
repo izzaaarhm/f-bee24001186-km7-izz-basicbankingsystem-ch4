@@ -5,8 +5,9 @@ runtime_config:
   operating_system: 'ubuntu22'
   runtime_version: '20'
 
-manual_scaling:
-  instances: 1
+automatic_scaling:
+  min_instances: 0
+  max_instances: 0
 
 includes:
 - env.yaml
