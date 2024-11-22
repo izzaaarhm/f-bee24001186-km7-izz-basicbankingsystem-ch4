@@ -1,7 +1,8 @@
-const { io } = require('../../app.js');
-
 class Notification {
   static push(event, message) {
+    // Ambil instance io dari app
+    const io = require('../app').get('socketio');
+    
     if (io) {
       io.emit(event, { message });
     } else {
