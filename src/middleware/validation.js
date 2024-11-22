@@ -11,6 +11,15 @@ const userSchema = Joi.object({
     }).optional()
 });
 
+const forgotPasswordSchema = Joi.object({
+    email: Joi.string().email().required(),
+});
+
+const resetPasswordSchema = Joi.object({
+    token: Joi.string().required(), 
+    newPassword: Joi.string().min(6).required(),
+});
+
 const profileSchema = Joi.object({
     identity_type: Joi.string().valid('KTP', 'SIM', 'PASSPORT').required(),
     identity_number: Joi.string().min(10).max(20).required(),
@@ -53,5 +62,7 @@ module.exports = {
     withdrawSchema,
     depositSchema,
     transactionSchema,
-    imageSchema
+    imageSchema,
+    forgotPasswordSchema, 
+    resetPasswordSchema 
 };
