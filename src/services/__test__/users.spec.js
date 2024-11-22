@@ -4,13 +4,21 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
 
+jest.mock('nodemailer', () => ({
+  createTransport: jest.fn(() => ({
+    sendMail: jest.fn(() => Promise.resolve({ messageId: 'mockMessageId' })),
+  })),
+}));
+
 jest.mock('bcrypt');
+
 jest.mock('@prisma/client', () => {
   const mockPrisma = {
     user: {
       create: jest.fn(),
       findMany: jest.fn(),
       findUnique: jest.fn(),
+      update: jest.fn(),
     },
   };
   return { PrismaClient: jest.fn(() => mockPrisma) };
@@ -19,6 +27,7 @@ jest.mock('@prisma/client', () => {
 describe('User Service', () => {
   afterEach(() => {
     jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe('findUserByEmail', () => {
@@ -115,6 +124,66 @@ describe('User Service', () => {
       await expect(new User().login('test@example.com', 'wrongpass')).rejects.toThrow('Email atau password salah');
     });
   });
+
+  describe('forgotPassword', () => {
+    test('harus mengirimkan email reset password jika email valid', async () => {
+      const user = new User();
+      const mockUser = { id: 1, email: 'test@example.com', name: 'Izza' };
+      prisma.user.findUnique.mockResolvedValue(mockUser);
+  
+      const mockTransporter = require('nodemailer').createTransport();
+      const sendMailSpy = jest.spyOn(mockTransporter, 'sendMail');
+  
+      const result = await user.forgotPassword('test@example.com');
+  
+      expect(prisma.user.findUnique).toHaveBeenCalledWith({ where: { email: 'test@example.com' } });
+      expect(sendMailSpy).toHaveBeenCalledWith({
+        from: process.env.EMAIL_SENDER,
+        to: mockUser.email,
+        subject: 'Reset Password',
+        text: expect.any(String),
+      });
+      expect(result).toEqual({ message: 'Email untuk reset password telah dikirim' });
+    });
+  
+    test('harus menampilkan error jika email tidak ditemukan', async () => {
+      prisma.user.findUnique.mockResolvedValue(null);
+  
+      await expect(new User().forgotPassword('notfound@example.com')).rejects.toThrow(
+        'Email tidak terdaftar'
+      );
+    });
+  });
+  
+  describe('resetPassword', () => {
+    test('harus memperbarui password jika token valid', async () => {
+      const user = new User();
+      const mockUser = { id: 1, email: 'test@example.com', password: 'oldHashedPassword' };
+      const mockTokenPayload = { userId: 1, email: 'test@example.com' };
+  
+      prisma.user.findUnique.mockResolvedValue(mockUser);
+      bcrypt.hash.mockResolvedValue('newHashedPassword');
+      jest.spyOn(jwt, 'verify').mockReturnValue(mockTokenPayload);
+  
+      const result = await user.resetPassword('validToken', 'newPassword');
+  
+      expect(jwt.verify).toHaveBeenCalledWith('validToken', process.env.JWT_SECRET);
+      expect(bcrypt.hash).toHaveBeenCalledWith('newPassword', 10);
+      expect(prisma.user.update).toHaveBeenCalledWith({
+        where: { id: 1 },
+        data: { password: 'newHashedPassword' },
+      });
+      expect(result).toEqual({ message: 'Password berhasil direset' });
+    });
+  
+    test('harus menampilkan error jika token tidak valid', async () => {
+      jest.spyOn(jwt, 'verify').mockImplementation(() => {
+        throw new Error('Invalid token');
+      });
+  
+      await expect(new User().resetPassword('invalidToken', 'newPassword')).rejects.toThrow('Gagal mereset password: Invalid token');
+    });
+  });   
 
   describe('getAllUsers', () => {
     test('harus menampilkan daftar semua user', async () => {

@@ -67,6 +67,48 @@ class User {
     }
   }
 
+  async forgotPassword(email) {
+    try {
+      const user = await prisma.user.findUnique({ where: { email } });
+  
+      if (!user) {
+        throw new Error('Email tidak terdaftar');
+      }
+  
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  
+      const resetLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
+  
+      const { sendEmail } = require('./email_service');
+      await sendEmail(
+        email,
+        'Reset Password',
+        `<h3>Klik link berikut untuk mereset password Anda: </h3>
+        <a href="${resetLink}">${resetLink}</a>`
+      );
+  
+      return { message: 'Link untuk reset password telah dikirim ke email Anda' };
+    } catch (error) {
+      throw new Error(`Gagal memproses permintaan lupa password: ${error.message}`);
+    }
+  }
+  
+  async resetPassword(token, newPassword) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+  
+      await prisma.user.update({
+        where: { id: decoded.id },
+        data: { password: hashedPassword },
+      });
+  
+      return { message: 'Password berhasil direset' };
+    } catch (error) {
+      throw new Error(`Gagal mereset password: ${error.message}`);
+    }
+  }  
+
   async getAllUsers() {
     try {
       const users = await prisma.user.findMany({
