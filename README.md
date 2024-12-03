@@ -39,7 +39,7 @@ Hai! Projek ini merupakan sebuah banking system API sederhana (sangat-sangat sed
 6. **Jalankan server**:
    ```bash
      npm run start
-     npm run test (untuk menjalankan unit testing)
+     npm run test (untuk menjalankan testing dgn jest)
    ```
    
 ## API Documentation
